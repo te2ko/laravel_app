@@ -58,7 +58,7 @@ class TodoController extends Controller
         //dd( $this->todo->fill($input));
         $input['user_id'] = Auth::id();
         $this->todo->fill($input)->save();        
-        return redirect()->to('todo');
+        return redirect()->route('todo.index');
     }
 
     /**
@@ -103,7 +103,7 @@ class TodoController extends Controller
         //dd($input);
         //送られてきたidからレコードを取得してきてfillで$todoのプロパティに代入でアップデート処理を行う。
         $this->todo->find($id)->fill($input)->save();
-        return redirect()->to('todo');
+        return redirect()->route('todo.index');
     }
 
     /**
@@ -117,6 +117,6 @@ class TodoController extends Controller
         //deleteは物理削除 findはTodoインスタンスを返しています。
         //dd($this->todo->find($id));
         $this->todo->find($id)->delete();
-        return redirect()->to('todo');
+        return redirect()->route('todo.index');
     }
 }
