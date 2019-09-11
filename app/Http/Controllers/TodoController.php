@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 //ここだったらTodoを使いますよと宣言している。
 use App\Todo;
+use App\User;
 //extendsでControllerクラスを継承している（Controller.php）に記載されている。
 use Auth;
 class TodoController extends Controller
@@ -26,10 +27,11 @@ class TodoController extends Controller
      */
     public function index()
     {
+        $user = Auth::user();
+        // $userName = User::find(Auth::id())->name;
         //dd( $this->todo->getByUserId(Auth::id())); コレクション
-        $todos = $this->todo->getByUserId(Auth::id());
-        //dd($todos);
-        return view('todo.index',compact('todos'));
+        $todos = $this->todo->getByUserId($user->id);
+        return view('todo.index',compact('todos','user'));
     }
 
     /**
